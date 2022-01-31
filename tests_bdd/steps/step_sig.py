@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import ast
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, TypeAlias
 
 from behave import given, then, use_fixture, when
 from hamcrest import assert_that, instance_of
@@ -10,12 +10,12 @@ from funchacks import sig
 from tests_bdd._tools import function_template, has_args
 
 if TYPE_CHECKING:
-    _FirstContextT = TypeVar("_FirstContextT")
-    _SecondContextT = TypeVar("_SecondContextT")
+    _FirstContext: TypeAlias = object()
+    _SecondContext: TypeAlias = object()
 
 
 @given("we have argument {name}, {default} and {type} of the argument")
-def step_args_intro(context: _FirstContextT, name: str, default: str, type: str) -> None:
+def step_args_intro(context: _FirstContext, name: str, default: str, type: str) -> None:
     """SCENARIO: 1
 
     We have the name, default and type attributes, which we
@@ -27,7 +27,7 @@ def step_args_intro(context: _FirstContextT, name: str, default: str, type: str)
 
 
 @when("we create argument with appropriate values")
-def step_creating_arguments(context: _FirstContextT) -> None:
+def step_creating_arguments(context: _FirstContext) -> None:
     """SCENARIO: 1
 
     We take the previously received parameters from the context
@@ -49,7 +49,7 @@ def step_creating_arguments(context: _FirstContextT) -> None:
 
 
 @then("we will check their behavior")
-def step_checking_arguments_behavior(context: _FirstContextT) -> None:
+def step_checking_arguments_behavior(context: _FirstContext) -> None:
     """SCENARIO: 1
 
     We test the behavior of the previously created
@@ -59,7 +59,7 @@ def step_checking_arguments_behavior(context: _FirstContextT) -> None:
 
 
 @then("additionally test the arg, kwarg, posonly and kwonly functions")
-def step_testing_other_wrap_functions(_: _FirstContextT) -> None:
+def step_testing_other_wrap_functions(_: _FirstContext) -> None:
     """SCENARIO: 1
 
     We additionally test functions such as arg, kwarg,
@@ -74,7 +74,7 @@ def step_testing_other_wrap_functions(_: _FirstContextT) -> None:
 
 
 @given("we have some {decorator} name")
-def step_passing_decorator_name(context: _SecondContextT, decorator: str) -> None:
+def step_passing_decorator_name(context: _SecondContext, decorator: str) -> None:
     """SCENARIO: 2
 
     Getting the name of the decorator and add it to
@@ -84,7 +84,7 @@ def step_passing_decorator_name(context: _SecondContextT, decorator: str) -> Non
 
 
 @when("we pass function to the context of the current scenario")
-def step_finalize_context(context: _SecondContextT) -> None:
+def step_finalize_context(context: _SecondContext) -> None:
     """SCENARIO: 2
 
     Gettin the current decorator and adding it to
@@ -95,7 +95,7 @@ def step_finalize_context(context: _SecondContextT) -> None:
 
 
 @then("we test the behavior of this decorator")
-def step_checking_behavior_of_decorator(context: _SecondContextT) -> None:
+def step_checking_behavior_of_decorator(context: _SecondContext) -> None:
     """SCENARIO: 2
 
     Testing the behavior of the received decorator

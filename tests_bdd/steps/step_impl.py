@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, TypeAlias
 
 from behave import given, then, use_fixture, when
 from hamcrest import assert_that, equal_to, instance_of, is_not
@@ -10,13 +10,13 @@ from funchacks.internal import ZipGeneric
 from tests_bdd._tools import function_template, has_args
 
 if TYPE_CHECKING:
-    _FirstContextT = TypeVar("_FirstContextT")
-    _SecondContextT = TypeVar("_SecondContextT")
-    _ThirdContextT = TypeVar("_ThirdContextT")
+    _FirstContext: TypeAlias = object()
+    _SecondContext: TypeAlias = object()
+    _ThirdContext: TypeAlias = object()
 
 
 @given("we have created function")
-def step_adding_function_to_the_context(context: _FirstContextT) -> None:
+def step_adding_function_to_the_context(context: _FirstContext) -> None:
     """SCENARIO: 1
 
     Adding a function template to the context of
@@ -26,7 +26,7 @@ def step_adding_function_to_the_context(context: _FirstContextT) -> None:
 
 
 @when("we creating WrapFunction object")
-def step_creating_wrapfunction_object(context: _FirstContextT) -> None:
+def step_creating_wrapfunction_object(context: _FirstContext) -> None:
     """SCENARIO: 1
 
     Create a WrapFunction object and do basic tests
@@ -41,7 +41,7 @@ def step_creating_wrapfunction_object(context: _FirstContextT) -> None:
 
 
 @then("we test created WrapFunction object")
-def step_test_behavior_of_created_object(context: _FirstContextT) -> None:
+def step_test_behavior_of_created_object(context: _FirstContext) -> None:
     """SCENARIO: 1
 
     We have created a Wrap Function object,
@@ -54,7 +54,7 @@ def step_test_behavior_of_created_object(context: _FirstContextT) -> None:
 
 
 @given("we have created new WrapFunction object")
-def step_creating_new_wrapfunction_object(context: _SecondContextT) -> None:
+def step_creating_new_wrapfunction_object(context: _SecondContext) -> None:
     """SCENARIO: 2
 
     We created a new WrapFunction object and added
@@ -64,7 +64,7 @@ def step_creating_new_wrapfunction_object(context: _SecondContextT) -> None:
 
 
 @then("we test properties of created object")
-def step_testing_properties_of_created_object(context: _SecondContextT) -> None:
+def step_testing_properties_of_created_object(context: _SecondContext) -> None:
     """SCENARIO: 2
 
     We already have a WrapFunction object created,
@@ -80,7 +80,7 @@ def step_testing_properties_of_created_object(context: _SecondContextT) -> None:
 
 
 @given("we have created some new function")
-def step_creating_new_function(context: _ThirdContextT) -> None:
+def step_creating_new_function(context: _ThirdContext) -> None:
     """SCENARIO: 3
 
     We already have an object of the created function,
@@ -91,7 +91,7 @@ def step_creating_new_function(context: _ThirdContextT) -> None:
 
 
 @when("we creating WrapFunction object using make_wrap function")
-def step_creating_new_object_using_make_wrap(context: _ThirdContextT) -> None:
+def step_creating_new_object_using_make_wrap(context: _ThirdContext) -> None:
     """SCENARIO: 3
 
     We created a WrapFunction object using the make_wrap
@@ -106,7 +106,7 @@ def step_creating_new_object_using_make_wrap(context: _ThirdContextT) -> None:
 
 
 @then("we test make_wrap callback")
-def step_testing_make_wrap_callback(context: _ThirdContextT) -> None:
+def step_testing_make_wrap_callback(context: _ThirdContext) -> None:
     """SCENARIO: 3
 
     We've created a WrapFunction object using the make_wrap

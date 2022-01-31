@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Hashable, TypeVar
+from typing import TYPE_CHECKING, Any, Hashable, TypeAlias
 
 from behave import given, then, when
 from hamcrest import assert_that, calling, equal_to, instance_of, raises
@@ -9,11 +9,11 @@ from funchacks import inspections, sig
 from funchacks.errors import TemporaryError
 
 if TYPE_CHECKING:
-    _FirstContextT = TypeVar("_FirstContextT")
+    _FirstContext: TypeAlias = object()
 
 
 @given("we creating function and passing it to the context of the current scenario")
-def step_creating_function_with_locals(context: _FirstContextT) -> None:
+def step_creating_function_with_locals(context: _FirstContext) -> None:
     """SCENARIO: 1
 
     Creating function object for further tests.
@@ -28,7 +28,7 @@ def step_creating_function_with_locals(context: _FirstContextT) -> None:
 
 
 @when("we creating Bind object from received function locals")
-def step_creating_bind_object(context: _FirstContextT) -> None:
+def step_creating_bind_object(context: _FirstContext) -> None:
     """SCENARIO: 1
 
     Creating wrapper over function locals.
@@ -58,7 +58,7 @@ def step_creating_bind_object(context: _FirstContextT) -> None:
 
 
 @then("we test Bind behavior")
-def step_testing_wrapper_behavior(context: _FirstContextT) -> None:
+def step_testing_wrapper_behavior(context: _FirstContext) -> None:
     """SCENARIO: 1
 
     Testing wrapper behavior.
