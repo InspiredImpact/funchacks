@@ -1,0 +1,10 @@
+[MASTER]
+suggestion-mode=yes
+
+
+[MESSAGES CONTROL]
+confidence=HIGH
+disable=missing-module-docstring,
+        undefined-variable,
+        import-error,
+        no-name-in-module

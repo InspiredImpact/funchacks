@@ -1,0 +1,11 @@
+* text=auto eol=lf
+
+# Force text.
+*.yaml text
+*.md text
+*.py text
+
+# Binary files.
+*.png -text
+*.jpg -text
+*.gif -text
