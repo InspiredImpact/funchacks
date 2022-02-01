@@ -36,7 +36,7 @@ class WrapFunction(Representable):
     ...     a = 1
     ...
     >>> wrap = WrapFunction.from_function(foo)
-    >>> wrap.flocals.asdict()
+    >>> dict(wrap.flocals)
     {'a': 1}
     >>> isinstance(wrap.flocals, zip)
     True

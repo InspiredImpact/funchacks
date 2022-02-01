@@ -18,13 +18,13 @@ __all__ = [
 import inspect
 from dataclasses import dataclass
 from types import CodeType, FunctionType
-from typing import TYPE_CHECKING, Any, List, Sequence, Tuple
+from typing import TYPE_CHECKING, Any, Callable, List, Sequence, Tuple, cast
 
 from funchacks.internal import MISSING
 from funchacks.sig.marks import Argument
 
 if TYPE_CHECKING:
-    from funchacks.typehints import AnyCallableT, ShouldReturn
+    from funchacks.typehints import FunctionT, ShouldReturn
 
 
 def code_template(
@@ -91,8 +91,8 @@ class ArgdefSignature:
         )
 
     @classmethod
-    def unwrap_from_function(cls, fn: AnyCallableT, /) -> ArgdefSignature:
-        sig = inspect.Signature.from_callable(fn)
+    def unwrap_from_function(cls, fn: FunctionT, /) -> ArgdefSignature:
+        sig = inspect.Signature.from_callable(cast(Callable[..., Any], fn))
         args = []
         for param_name, param in sig.parameters.items():
             if param.kind in (inspect.Parameter.VAR_KEYWORD, inspect.Parameter.VAR_POSITIONAL):
@@ -126,13 +126,14 @@ class ArgdefSignature:
         return varnames
 
 
-def change_args(*args: Argument) -> ShouldReturn[FunctionType]:
-    def inner(fn: FunctionType) -> FunctionType:
+def change_args(*args: Argument) -> ShouldReturn[FunctionT]:
+    def inner(fn: FunctionT) -> FunctionT:
         sig = ArgdefSignature.unwrap_args(args)
+        code = fn.__code__
 
         self = FunctionType(
             code_template(
-                (code := fn.__code__),
+                code,
                 sig.argcount,
                 sig.posonlycount,
                 sig.kwonlycount,
@@ -149,13 +150,14 @@ def change_args(*args: Argument) -> ShouldReturn[FunctionType]:
     return inner
 
 
-def from_function(fn: FunctionType, /) -> ShouldReturn[FunctionType]:
-    def inner(initial: FunctionType) -> FunctionType:
+def from_function(fn: FunctionT, /) -> ShouldReturn[FunctionT]:
+    def inner(_: FunctionT) -> FunctionT:
         sig = ArgdefSignature.unwrap_from_function(fn)
+        code = fn.__code__
 
         self = FunctionType(
             code_template(
-                (code := initial.__code__),
+                code,
                 sig.argcount,
                 sig.posonlycount,
                 sig.kwonlycount,

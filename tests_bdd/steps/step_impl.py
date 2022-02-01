@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING
 
 from behave import given, then, use_fixture, when
 from hamcrest import assert_that, equal_to, instance_of, is_not
+from typing_extensions import TypeAlias
 
 from funchacks import WrapFunction, make_wrap
 from funchacks.internal import ZipGeneric
@@ -76,7 +77,7 @@ def step_testing_properties_of_created_object(context: _SecondContext) -> None:
     assert_that(new_wrap, instance_of(WrapFunction))
 
     assert_that(new_wrap.flocals, instance_of(ZipGeneric))
-    assert_that(new_wrap.flocals.asdict(), equal_to({"d": 1, "e": 2}))
+    assert_that(dict(new_wrap.flocals), equal_to({"d": 1, "e": 2}))
 
 
 @given("we have created some new function")
@@ -114,4 +115,4 @@ def step_testing_make_wrap_callback(context: _ThirdContext) -> None:
     test its behavior.
     """
     assert_that(context.wrap.flocals, instance_of(ZipGeneric))
-    assert_that(context.wrap.flocals.asdict(), equal_to({"d": 1, "e": 2}))
+    assert_that(dict(context.wrap.flocals), equal_to({"d": 1, "e": 2}))

@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Hashable, TypeAlias
+from typing import TYPE_CHECKING, Any, Hashable
 
 from behave import given, then, when
 from hamcrest import assert_that, calling, equal_to, instance_of, raises
+from typing_extensions import TypeAlias
 
 from funchacks import inspections, sig
 from funchacks.errors import TemporaryError
@@ -33,7 +34,7 @@ def step_creating_bind_object(context: _FirstContext) -> None:
 
     Creating wrapper over function locals.
     """
-    localvars = inspections.getlocals(context.function.__code__).asdict()
+    localvars = dict(inspections.getlocals(context.function.__code__))
 
     @sig.change_args(sig.posonly("a"))
     def baz(*args: Any) -> sig.Bind[Hashable, Any]:

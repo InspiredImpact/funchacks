@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import ast
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING
 
 from behave import given, then, use_fixture, when
 from hamcrest import assert_that, instance_of
+from typing_extensions import TypeAlias
 
 from funchacks import sig
 from tests_bdd._tools import function_template, has_args
