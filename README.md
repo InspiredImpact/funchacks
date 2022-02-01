@@ -123,3 +123,27 @@ def eggs(*args: Any, **kwargs: Any) -> None:
 >>> inspect.Signature.from_callable(eggs)
 (a, /, b, c=None, *, d)
 ```
+
+#### Making small wrap.
+```py
+from types import CodeType
+
+from funchacks import make_wrap, WrapFunction
+
+
+def foo() -> None:
+    some_local = 1
+    other_local = 2
+
+wrap = make_wrap(foo)
+wrap_from_func = WrapFunction.from_function(foo)
+
+>>> dict(wrap.flocals)
+{'some_local': 1, 'other_local': 2}
+>>> isinstance(wrap, WrapFunction)
+True
+>>> dict(wrap.flocals) == dict(wrap_from_func.flocals)
+True
+>>> isinstance(wrap.code, CodeType)
+True
+```
