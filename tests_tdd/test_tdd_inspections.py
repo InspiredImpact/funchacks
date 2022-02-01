@@ -15,4 +15,4 @@ def test_get_locals() -> None:
     assert hasattr(foo_locals, "asdict")
 
     assert isinstance(foo_locals, zip)
-    assert foo_locals.asdict() == {"c": 1, "d": 2}
+    assert dict(foo_locals) == {"c": 1, "d": 2}
