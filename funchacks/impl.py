@@ -3,7 +3,7 @@ from __future__ import annotations
 __all__ = ["WrapFunction", "make_wrap"]
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Tuple, TypeVar
+from typing import TYPE_CHECKING, Any, Tuple
 
 from funchacks.inspections import getlocals
 from funchacks.interfaces import Representable
@@ -11,11 +11,8 @@ from funchacks.interfaces import Representable
 if TYPE_CHECKING:
     from types import CodeType
 
-    from funchacks.interfaces import Codable
     from funchacks.internal import ZipGeneric
     from funchacks.typehints import AnyCallableT
-
-    _CodableT = TypeVar("_CodableT", bound=Codable)
 
 
 @dataclass
@@ -73,5 +70,5 @@ class WrapFunction(Representable):
         )
 
 
-def make_wrap(function: _CodableT, /) -> WrapFunction:
+def make_wrap(function: AnyCallableT, /) -> WrapFunction:
     return WrapFunction.from_function(function)
