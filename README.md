@@ -17,10 +17,6 @@ Funchacks is a fun module that provides a small package of utilities.
 That was the main idea of the project! But this path is a little dangerous,
 so the part could not be implemented, but if possible it will be implemented in the next versions!
 
-**So is it worth using funchacks signature utilities?**
-More likely no than yes. If you want a really optimized and safe implementation of this idea, it's better to
-look into `makefun` (this was another reason why I wanted to do a dynamic signature change without compile, eval and exec).
-
 # ⚙️ Installation
 ```bash
 pip install funchacks
