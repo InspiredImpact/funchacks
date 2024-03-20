@@ -1,7 +1,7 @@
 flake8==4.0.1
 isort==5.10.1
 pylint==2.12.2
-black==21.12b0
+black==24.3.0
 mypy==0.931
 pytest==6.2.5
 behave==1.2.6
